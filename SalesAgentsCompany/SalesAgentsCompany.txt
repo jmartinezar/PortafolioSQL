@@ -1,0 +1,45 @@
+Sales Agents Company
+
+La actual carpeta contiene una base de datos correspondiente a tres tablas que dan información de una empresa de agentes de ventas, en la cual se registran datos de los agentes, de los clientes de la empresa y de las órdenes realizadas. Las tablas tienen la siguiente estructura:
+
+                         Table "public.AGENTS"
+    Column    |         Type          | Collation | Nullable | Default 
+--------------+-----------------------+-----------+----------+---------
+ AGENT_CODE   | character(6)          |           | not null | 
+ AGENT_NAME   | character(40)         |           |          | 
+ WORKING_AREA | character(35)         |           |          | 
+ COMMISSION   | numeric(10,2)         |           |          | 
+ PHONE_NO     | character(15)         |           |          | 
+ COUNTRY      | character varying(25) |           |          | 
+
+############################################################################
+
+                         Table "public.CUSTOMER"
+     Column      |         Type          | Collation | Nullable | Default 
+-----------------+-----------------------+-----------+----------+---------
+ CUST_CODE       | character varying(6)  |           | not null | 
+ CUST_NAME       | character varying(40) |           | not null | 
+ CUST_CITY       | character(35)         |           |          | 
+ WORKING_AREA    | character varying(35) |           | not null | 
+ CUST_COUNTRY    | character varying(20) |           | not null | 
+ GRADE           | numeric               |           |          | 
+ OPENING_AMT     | numeric(12,2)         |           | not null | 
+ RECEIVE_AMT     | numeric(12,2)         |           | not null | 
+ PAYMENT_AMT     | numeric(12,2)         |           | not null | 
+ OUTSTANDING_AMT | numeric(12,2)         |           | not null | 
+ PHONE_NO        | character varying(17) |           | not null | 
+ AGENT_CODE      | character(6)          |           | not null | 
+
+
+############################################################################
+
+                          Table "public.ORDERS"
+     Column      |         Type          | Collation | Nullable | Default 
+-----------------+-----------------------+-----------+----------+---------
+ ORD_NUM         | numeric(6,0)          |           | not null | 
+ ORD_AMOUNT      | numeric(12,2)         |           | not null | 
+ ADVANCE_AMOUNT  | numeric(12,2)         |           | not null | 
+ ORD_DATE        | date                  |           | not null | 
+ CUST_CODE       | character varying(6)  |           | not null | 
+ AGENT_CODE      | character(6)          |           | not null | 
+ ORD_DESCRIPTION | character varying(60) |           | not null | 

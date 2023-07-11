@@ -1,3 +1,6 @@
- - El contenido de este repositorio tiene como fin formar un compilado de código en lenguaje SQL que busca mostrar la habilidad del autor en el manejo de dicho lenguaje.
+Structure Query Lenguage
+Autor: Juan Sebastián Martínez Arévalo
 
- - El contenido del repositorio contiene parte del proceso de aprendizaje del autor, por lo cual estará inicialmente ordenado en conceptos generales para cada uno de los cuales se desarrollarán diversos ejercicios con el objetivo de mejorar la habilidad mediante la práctica.
+- El contenido de este repositorio tiene como fin formar un compilado de código en lenguaje SQL que busca mostrar la habilidad del autor en el manejo de dicho lenguaje.
+
+ - El contenido del repositorio contiene parte del proceso de aprendizaje del autor, por lo cual estará inicialmente ordenado en carpetas que contienen pequeñas bases de datos, cada una con un código que crea la tabla en la base de datos, sobre las cuales se realizan diversos ejercicios en los que se manejan distintas herramientas del lenguaje; cada query contiene un comentario explicando lo que allí se hace, adicional a esto, cada carpeta contendrá un archivo de texto explicando brevemente la base de datos allí contenida.

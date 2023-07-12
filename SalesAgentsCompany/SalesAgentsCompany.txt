@@ -43,7 +43,6 @@ La actual carpeta contiene una base de datos correspondiente a tres tablas que d
  CUST_CODE       | character varying(6)  |           | not null | 
  AGENT_CODE      | character(6)          |           | not null | 
  ORD_DESCRIPTION | character varying(60) |           | not null | 
-
 En caso de no contar con las tablas en la base de datos de postgres, la carpeta contiene un documento con extensión sql que crea y rellena las tablas. El proceso de ejecución del archivo es mostrado a continuación:
 
  Inicialmente, se debe iniciar la línea de comando de postgres, para ello se ejecuta el comando
@@ -54,9 +53,14 @@ En caso de no contar con las tablas en la base de datos de postgres, la carpeta 
 
  \c MyDB
 
- para cambiar de la base de datos por defecto "postgres" a la base de datos deseada remplazando "MyDB" por el nombre de la base de datos correspondiente. Una vez en la base de datos deseada, se ejecuta el script llamado "CreaDB.sql" que está contenido en la misma carpeta que este documento, de la siguiente forma
+ para cambiar de la base de datos por defecto "postgres" a la base de datos deseada remplazando "MyDB" por el nombre de la base de datos correspondiente. Otra alternativa es usar el comando
+
+ sudo -u postgres psql MyDB
+
+ para ingresar a la línea de comandos de postgres en la base de datos MyDB. Una vez en la base de datos deseada, se ejecuta el script llamado "CreaDB.sql" que está contenido en la misma carpeta que este documento, de la siguiente forma
 
  \i /path/to/file/CreaDB.sql
 
- Con esto, son creadas las tres tablas correspondientes a la base de datos de la carpeta actual.
+ Con esto, son creadas las tres tablas correspondientes a la base de datos de la carpeta actual. 
+
  NOTA: este instructivo para la creación de la base de datos aplica únicamente para el uso de PostgreSQL en línea de comandos de GNU/Linux, para el uso de PostgreSQL en GNU/Linux mediante otras aplicaciones o su uso en otros sistemas operativos, consultar su fuente de confianza respecto a la ejecución de archivos .sql en PostgreSQL.

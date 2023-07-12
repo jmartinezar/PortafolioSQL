@@ -12,6 +12,12 @@ La actual carpeta contiene una base de datos correspondiente a tres tablas que d
  PHONE_NO     | character(15)         |           |          | 
  COUNTRY      | character varying(25) |           |          | 
 
+Indexes:
+    "AGENTS_pkey" PRIMARY KEY, btree ("AGENT_CODE")
+Referenced by:
+    TABLE ""CUSTOMER"" CONSTRAINT "CUSTOMER_AGENT_CODE_fkey" FOREIGN KEY ("AGENT_CODE") REFERENCES "AGENTS"("AGENT_CODE")
+    TABLE ""ORDERS"" CONSTRAINT "ORDERS_AGENT_CODE_fkey" FOREIGN KEY ("AGENT_CODE") REFERENCES "AGENTS"("AGENT_CODE")
+
 ############################################################################
 
                          Table "public.CUSTOMER"
@@ -31,6 +37,13 @@ La actual carpeta contiene una base de datos correspondiente a tres tablas que d
  AGENT_CODE      | character(6)          |           | not null | 
 
 
+Indexes:
+    "CUSTOMER_pkey" PRIMARY KEY, btree ("CUST_CODE")
+Foreign-key constraints:
+    "CUSTOMER_AGENT_CODE_fkey" FOREIGN KEY ("AGENT_CODE") REFERENCES "AGENTS"("AGENT_CODE")
+Referenced by:
+    TABLE ""ORDERS"" CONSTRAINT "ORDERS_CUST_CODE_fkey" FOREIGN KEY ("CUST_CODE") REFERENCES "CUSTOMER"("CUST_CODE")
+
 ############################################################################
 
                           Table "public.ORDERS"
@@ -43,6 +56,15 @@ La actual carpeta contiene una base de datos correspondiente a tres tablas que d
  CUST_CODE       | character varying(6)  |           | not null | 
  AGENT_CODE      | character(6)          |           | not null | 
  ORD_DESCRIPTION | character varying(60) |           | not null | 
+
+Indexes:
+    "ORDERS_pkey" PRIMARY KEY, btree ("ORD_NUM")
+Foreign-key constraints:
+    "ORDERS_AGENT_CODE_fkey" FOREIGN KEY ("AGENT_CODE") REFERENCES "AGENTS"("AGENT_CODE")
+    "ORDERS_CUST_CODE_fkey" FOREIGN KEY ("CUST_CODE") REFERENCES "CUSTOMER"("CUST_CODE")
+
+#############################################################################
+
 En caso de no contar con las tablas en la base de datos de postgres, la carpeta contiene un documento con extensión sql que crea y rellena las tablas. El proceso de ejecución del archivo es mostrado a continuación:
 
  Inicialmente, se debe iniciar la línea de comando de postgres, para ello se ejecuta el comando
@@ -61,6 +83,6 @@ En caso de no contar con las tablas en la base de datos de postgres, la carpeta 
 
  \i /path/to/file/CreaDB.sql
 
- Con esto, son creadas las tres tablas correspondientes a la base de datos de la carpeta actual. 
+ Con esto, son creadas las tres tablas correspondientes a la base de datos de la carpeta actual. Esta es también la forma en que se ejecuta cualquier query contenido en la carpeta mediante la consola de comandos.
 
  NOTA: este instructivo para la creación de la base de datos aplica únicamente para el uso de PostgreSQL en línea de comandos de GNU/Linux, para el uso de PostgreSQL en GNU/Linux mediante otras aplicaciones o su uso en otros sistemas operativos, consultar su fuente de confianza respecto a la ejecución de archivos .sql en PostgreSQL.

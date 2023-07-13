@@ -1,4 +1,5 @@
-/*Este query crea una vista de los 5 agentes con mayor cantidad de ordernes realizadas*/
+--Este query crea una vista de los 5 agentes con mayor cantidad de ordernes realizadas
+
 
 CREATE VIEW "BEST_AGENTS" AS
        (SELECT A."AGENT_NAME" AS "AGENT NAME", COUNT("ORD_NUM") AS "ORDERS AMOUNT"

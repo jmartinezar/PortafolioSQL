@@ -1,0 +1,6 @@
+Soccer Database:
+
+Los resultados en los partidos de fútbol pueden ser consecuencia de varios factores distintos, sin embargo, existen indicadores numéricos que pueden ayudar a predecir un resultado previo a un encuentro con cierta probabilidad. El presente proyecto contiene una amplia base de datos de partidos de ligas europeas las cuales son analizadas usando SQL.
+
+Database info:
+

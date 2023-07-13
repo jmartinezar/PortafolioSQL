@@ -28,6 +28,8 @@ WHERE LEAGUE_ID = 1
 GROUP BY 1;
 */
 
+-- Query que genera una tabla con los equipos de la liga con id 1 que hayan jugado la temporada 2008/2009, para cada equipo muestra la cantidad de partidos ganados, empatados y perdidos
+
 SELECT L.TEAM_API_ID AS "TEAM ID", 
 		SUM(L.PartidosPerdidos+V.PartidosPerdidos) AS "MATCHES LOSE",
 		SUM(L.PartidosEmpatados+V.PartidosEmpatados) AS "MATCHES DRAW",

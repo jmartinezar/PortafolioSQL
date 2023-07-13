@@ -1,0 +1,88 @@
+Sales Agents Company
+
+La actual carpeta contiene una base de datos correspondiente a tres tablas que dan información de una empresa de agentes de ventas, en la cual se registran datos de los agentes, de los clientes de la empresa y de las órdenes realizadas. Las tablas tienen la siguiente estructura:
+
+                         Table "public.AGENTS"
+    Column    |         Type          | Collation | Nullable | Default 
+--------------+-----------------------+-----------+----------+---------
+ AGENT_CODE   | character(6)          |           | not null | 
+ AGENT_NAME   | character(40)         |           |          | 
+ WORKING_AREA | character(35)         |           |          | 
+ COMMISSION   | numeric(10,2)         |           |          | 
+ PHONE_NO     | character(15)         |           |          | 
+ COUNTRY      | character varying(25) |           |          | 
+
+Indexes:
+    "AGENTS_pkey" PRIMARY KEY, btree ("AGENT_CODE")
+Referenced by:
+    TABLE ""CUSTOMER"" CONSTRAINT "CUSTOMER_AGENT_CODE_fkey" FOREIGN KEY ("AGENT_CODE") REFERENCES "AGENTS"("AGENT_CODE")
+    TABLE ""ORDERS"" CONSTRAINT "ORDERS_AGENT_CODE_fkey" FOREIGN KEY ("AGENT_CODE") REFERENCES "AGENTS"("AGENT_CODE")
+
+############################################################################
+
+                         Table "public.CUSTOMER"
+     Column      |         Type          | Collation | Nullable | Default 
+-----------------+-----------------------+-----------+----------+---------
+ CUST_CODE       | character varying(6)  |           | not null | 
+ CUST_NAME       | character varying(40) |           | not null | 
+ CUST_CITY       | character(35)         |           |          | 
+ WORKING_AREA    | character varying(35) |           | not null | 
+ CUST_COUNTRY    | character varying(20) |           | not null | 
+ GRADE           | numeric               |           |          | 
+ OPENING_AMT     | numeric(12,2)         |           | not null | 
+ RECEIVE_AMT     | numeric(12,2)         |           | not null | 
+ PAYMENT_AMT     | numeric(12,2)         |           | not null | 
+ OUTSTANDING_AMT | numeric(12,2)         |           | not null | 
+ PHONE_NO        | character varying(17) |           | not null | 
+ AGENT_CODE      | character(6)          |           | not null | 
+
+
+Indexes:
+    "CUSTOMER_pkey" PRIMARY KEY, btree ("CUST_CODE")
+Foreign-key constraints:
+    "CUSTOMER_AGENT_CODE_fkey" FOREIGN KEY ("AGENT_CODE") REFERENCES "AGENTS"("AGENT_CODE")
+Referenced by:
+    TABLE ""ORDERS"" CONSTRAINT "ORDERS_CUST_CODE_fkey" FOREIGN KEY ("CUST_CODE") REFERENCES "CUSTOMER"("CUST_CODE")
+
+############################################################################
+
+                          Table "public.ORDERS"
+     Column      |         Type          | Collation | Nullable | Default 
+-----------------+-----------------------+-----------+----------+---------
+ ORD_NUM         | numeric(6,0)          |           | not null | 
+ ORD_AMOUNT      | numeric(12,2)         |           | not null | 
+ ADVANCE_AMOUNT  | numeric(12,2)         |           | not null | 
+ ORD_DATE        | date                  |           | not null | 
+ CUST_CODE       | character varying(6)  |           | not null | 
+ AGENT_CODE      | character(6)          |           | not null | 
+ ORD_DESCRIPTION | character varying(60) |           | not null | 
+
+Indexes:
+    "ORDERS_pkey" PRIMARY KEY, btree ("ORD_NUM")
+Foreign-key constraints:
+    "ORDERS_AGENT_CODE_fkey" FOREIGN KEY ("AGENT_CODE") REFERENCES "AGENTS"("AGENT_CODE")
+    "ORDERS_CUST_CODE_fkey" FOREIGN KEY ("CUST_CODE") REFERENCES "CUSTOMER"("CUST_CODE")
+
+#############################################################################
+
+En caso de no contar con las tablas en la base de datos de postgres, la carpeta contiene un documento con extensión sql que crea y rellena las tablas. El proceso de ejecución del archivo es mostrado a continuación:
+
+ Inicialmente, se debe iniciar la línea de comando de postgres, para ello se ejecuta el comando
+ 
+ sudo -u postgres psql
+ 
+ Este comando puede solicitar el ingreso de la contraseña por parte del usuario para la ejecución del comando con permisos sudo. Una vez en la línea de comandos de postgres, se usa el comando
+
+ \c MyDB
+
+ para cambiar de la base de datos por defecto "postgres" a la base de datos deseada remplazando "MyDB" por el nombre de la base de datos correspondiente. Otra alternativa es usar el comando
+
+ sudo -u postgres psql MyDB
+
+ para ingresar a la línea de comandos de postgres en la base de datos MyDB. Una vez en la base de datos deseada, se ejecuta el script llamado "CreaDB.sql" que está contenido en la misma carpeta que este documento, de la siguiente forma
+
+ \i /path/to/file/CreaDB.sql
+
+ Con esto, son creadas las tres tablas correspondientes a la base de datos de la carpeta actual. Esta es también la forma en que se ejecuta cualquier query contenido en la carpeta mediante la consola de comandos.
+
+ NOTA: este instructivo para la creación de la base de datos aplica únicamente para el uso de PostgreSQL en línea de comandos de GNU/Linux, para el uso de PostgreSQL en GNU/Linux mediante otras aplicaciones o su uso en otros sistemas operativos, consultar su fuente de confianza respecto a la ejecución de archivos .sql en PostgreSQL.

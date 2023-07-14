@@ -30,9 +30,9 @@ GROUP BY 1;
 
 -- Query que genera una tabla con los equipos de la liga con id 1 que hayan jugado la temporada 2008/2009, para cada equipo muestra la cantidad de partidos ganados, empatados y perdidos
 
-DROP TABLE IF EXISTS "Tabla de posiciones";
+DROP VIEW IF EXISTS "Tabla de posiciones";
 
-CREATE TABLE IF NOT EXISTS "Tabla de posiciones" AS
+CREATE VIEW IF NOT EXISTS "Tabla de posiciones" AS
 SELECT L.TEAM_API_ID AS "TEAM ID", 
 		SUM(L.PartidosPerdidos+V.PartidosPerdidos) AS "MATCHES LOSE",
 		SUM(L.PartidosEmpatados+V.PartidosEmpatados) AS "MATCHES DRAW",
@@ -59,7 +59,7 @@ FROM (SELECT TEAM_API_ID, COUNT(CASE WHEN home_team_goal < away_team_goal THEN 1
 GROUP BY 1
 ORDER BY 4 DESC;
 
-ALTER TABLE "Tabla de posiciones" ADD COLUMN "Partidos jugados" INT;
+ALTER VIEW "Tabla de posiciones" ADD COLUMN "Partidos jugados" INT;
 
 UPDATE "Tabla de posiciones" SET "Partidos jugados"= "MATCHES LOSE"+"MATCHES DRAW"+"MATCHES WIN";
 

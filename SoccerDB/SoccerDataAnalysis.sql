@@ -20,13 +20,24 @@ GROUP BY 1;
 
 --Query que cuente los partidos ganados ganados, empatados y perdidos en condición de visitante por cada equipo
 
-SELECT TEAM_API_ID, COUNT(CASE WHEN home_team_goal < away_team_goal THEN 1 END) AS PartidosPerdidos,
+SELECT TEAM_API_ID, LEAGUE_ID, COUNT(CASE WHEN home_team_goal < away_team_goal THEN 1 END) AS PartidosPerdidos,
        COUNT(CASE WHEN home_team_goal = away_team_goal THEN 1 END) AS PartidosEmpatados,
        COUNT(CASE WHEN home_team_goal > away_team_goal THEN 1 END) AS PartidosGanados
 FROM TEAM T JOIN MATCH M ON (T.TEAM_API_ID = M.AWAY_TEAM_API_ID)
-WHERE LEAGUE_ID = 1
+WHERE LEAGUE_ID = 1729
 GROUP BY 1;
 
+--Query que muestra la tabla con las ligas en la base de datos
+SELECT * FROM LEAGUE;
+
+--Query que genera una tabla con los goles marcados y recibidos en condición de visitante por cada equipo
+
+SELECT HOME_TEAM_API_ID, SUM(CASE WHEN HOME_TEAM_GOAL > 0 THEN HOME_TEAM_GOAL END) AS GolesAFavor,
+		SUM(CASE WHEN AWAY_TEAM_GOAL > 0 THEN AWAY_TEAM_GOAL END) AS GolesEnContra
+		FROM MATCH M
+		WHERE LEAGUE_ID = 1729 AND SEASON = '2008/2009'
+		GROUP BY 1
+		ORDER BY 1;
 
 -- Query que genera una tabla con los equipos de la liga con id 1 que hayan jugado la temporada 2008/2009, para cada equipo muestra los partidos jugados, la cantidad de partidos ganados, empatados y perdidos, los goles anotados, recibidos y la diferencia de gol.
 
@@ -45,19 +56,19 @@ SELECT L.TEAM_API_ID AS "TEAM ID",
 FROM (SELECT TEAM_API_ID, COUNT(CASE WHEN home_team_goal < away_team_goal THEN 1 END) AS PartidosPerdidos,
        COUNT(CASE WHEN home_team_goal = away_team_goal THEN 1 END) AS PartidosEmpatados,
        COUNT(CASE WHEN home_team_goal > away_team_goal THEN 1 END) AS PartidosGanados,
-	   COUNT(CASE WHEN HOME_TEAM_GOAL > 0 THEN HOME_TEAM_GOAL END) AS GolesAFavor,
-	   COUNT(CASE WHEN AWAY_TEAM_GOAL > 0 THEN AWAY_TEAM_GOAL END) AS GolesEnContra
+	   SUM(CASE WHEN HOME_TEAM_GOAL > 0 THEN HOME_TEAM_GOAL WHEN HOME_TEAM_GOAL = 0 THEN 0 END) AS GolesAFavor,
+	   SUM(CASE WHEN AWAY_TEAM_GOAL > 0 THEN AWAY_TEAM_GOAL WHEN AWAY_TEAM_GOAL = 0 THEN 0 END) AS GolesEnContra
 		FROM TEAM T JOIN MATCH M ON (T.TEAM_API_ID = M.HOME_TEAM_API_ID)
-		WHERE LEAGUE_ID = 1 AND SEASON = '2008/2009'
+		WHERE LEAGUE_ID = 1729 AND SEASON = '2008/2009'
 		GROUP BY 1) L 
 	JOIN
-		(SELECT TEAM_API_ID, COUNT(CASE WHEN home_team_goal < away_team_goal THEN 1 END) AS PartidosPerdidos,
+		(SELECT TEAM_API_ID, COUNT(CASE WHEN home_team_goal < away_team_goal THEN 1 END) AS PartidosGanados,
        COUNT(CASE WHEN home_team_goal = away_team_goal THEN 1 END) AS PartidosEmpatados,
-       COUNT(CASE WHEN home_team_goal > away_team_goal THEN 1 END) AS PartidosGanados,
-	   COUNT(CASE WHEN AWAY_TEAM_GOAL > 0 THEN AWAY_TEAM_GOAL END) AS GolesAFavor,
-	   COUNT(CASE WHEN HOME_TEAM_GOAL > 0 THEN HOME_TEAM_GOAL END) AS GolesEnContra
+       COUNT(CASE WHEN home_team_goal > away_team_goal THEN 1 END) AS PartidosPerdidos,
+	   SUM(CASE WHEN AWAY_TEAM_GOAL > 0 THEN AWAY_TEAM_GOAL END) AS GolesAFavor,
+	   SUM(CASE WHEN HOME_TEAM_GOAL > 0 THEN HOME_TEAM_GOAL END) AS GolesEnContra
 		FROM TEAM T JOIN MATCH M ON (T.TEAM_API_ID = M.AWAY_TEAM_API_ID)
-		WHERE LEAGUE_ID = 1 AND SEASON = '2008/2009'
+		WHERE LEAGUE_ID = 1729 AND SEASON = '2008/2009'
 	GROUP BY 1) V ON L.TEAM_API_ID = V.TEAM_API_ID
 GROUP BY 1
 ORDER BY 9 DESC;

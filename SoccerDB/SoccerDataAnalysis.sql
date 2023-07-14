@@ -1,4 +1,4 @@
-/*--Query inicial, busca en principio generar una tabla de posiciones estándar
+--Query inicial, busca en principio generar una tabla de posiciones estándar
 
 SELECT TEAM_API_ID, CASE 
 					WHEN HOME_TEAM_GOAL > AWAY_TEAM_GOAL THEN 'W' 
@@ -28,11 +28,12 @@ WHERE LEAGUE_ID = 1
 GROUP BY 1;
 */
 
--- Query que genera una tabla con los equipos de la liga con id 1 que hayan jugado la temporada 2008/2009, para cada equipo muestra la cantidad de partidos ganados, empatados y perdidos
+
+-- Query que genera una tabla con los equipos de la liga con id 1 que hayan jugado la temporada 2008/2009, para cada equipo muestra los partidos jugados, la cantidad de partidos ganados, empatados y perdidos, los goles anotados, recibidos y la diferencia de gol.
 
 DROP VIEW IF EXISTS [Tabla de posiciones];
 
-CREATE VIEW IF NOT EXISTS [Tabla de posiciones] AS
+CREATE TABLE IF NOT EXISTS [Tabla de posiciones] AS
 SELECT L.TEAM_API_ID AS "TEAM ID", 
 		SUM(L.PartidosPerdidos+V.PartidosPerdidos+L.PartidosEmpatados+V.PartidosEmpatados+L.PartidosGanados+V.PartidosGanados) AS PJ,
 		SUM(L.PartidosPerdidos+V.PartidosPerdidos) AS PP,
@@ -40,7 +41,7 @@ SELECT L.TEAM_API_ID AS "TEAM ID",
 		SUM(L.PartidosGanados+V.PartidosGanados) AS PG,
 		SUM(L.GolesAFavor+V.GolesAFavor) AS GF,
 		SUM(L.GolesEnContra+V.GolesEnContra) AS GC,
-		SUM(L.GolesAFavor+V.GolesAFavor-L.GolesEnContra+V-GolesEnContra) AS DG
+		SUM(L.GolesAFavor+V.GolesAFavor-L.GolesEnContra-V.GolesEnContra) AS DG
 FROM (SELECT TEAM_API_ID, COUNT(CASE WHEN home_team_goal < away_team_goal THEN 1 END) AS PartidosPerdidos,
        COUNT(CASE WHEN home_team_goal = away_team_goal THEN 1 END) AS PartidosEmpatados,
        COUNT(CASE WHEN home_team_goal > away_team_goal THEN 1 END) AS PartidosGanados,
@@ -61,4 +62,4 @@ FROM (SELECT TEAM_API_ID, COUNT(CASE WHEN home_team_goal < away_team_goal THEN 1
 GROUP BY 1
 ORDER BY 4 DESC;
 
---SELECT * FROM [Tabla de posiciones];
+SELECT * FROM [Tabla de posiciones];

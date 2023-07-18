@@ -43,8 +43,21 @@ SELECT HOME_TEAM_API_ID, SUM(CASE WHEN HOME_TEAM_GOAL > 0 THEN HOME_TEAM_GOAL EN
 
 DROP TABLE IF EXISTS [Tabla de posiciones];
 
-CREATE TABLE IF NOT EXISTS [Tabla de posiciones] AS
-SELECT L.TEAM_API_ID AS "TEAM ID", 
+CREATE TABLE IF NOT EXISTS [Tabla de posiciones]
+(
+"POSICIÓN" INTEGER PRIMARY KEY,
+"EQUIPO" TEXT,
+PJ INTEGER,
+PP INTEGER,
+PE INTEGER,
+PG INTEGER,
+GF INTEGER,
+GC INTEGER,
+DG INTEGER,
+PTS INTEGER
+);
+INSERT INTO [Tabla de posiciones]("EQUIPO", PJ, PP, PE, PG, GF, GC, DG, PTS)
+SELECT L.TEAM_API_ID AS "EQUIPO", 
 		SUM(L.PartidosPerdidos+V.PartidosPerdidos+L.PartidosEmpatados+V.PartidosEmpatados+L.PartidosGanados+V.PartidosGanados) AS PJ,
 		SUM(L.PartidosPerdidos+V.PartidosPerdidos) AS PP,
 		SUM(L.PartidosEmpatados+V.PartidosEmpatados) AS PE,
@@ -71,6 +84,6 @@ FROM (SELECT TEAM_API_ID, COUNT(CASE WHEN home_team_goal < away_team_goal THEN 1
 		WHERE LEAGUE_ID = 1729 AND SEASON = '2008/2009'
 	GROUP BY 1) V ON L.TEAM_API_ID = V.TEAM_API_ID
 GROUP BY 1
-ORDER BY 9 DESC;
+ORDER BY 9 DESC, 8 DESC;
 
 SELECT * FROM [Tabla de posiciones];

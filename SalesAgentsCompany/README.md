@@ -64,15 +64,5 @@ sqlite3 sales_db.db < data_import.sql
 
 ## Data Validation
 ```sql
--- Check foreign key constraints
-PRAGMA foreign_key_check;
-
--- Verify data integrity
-PRAGMA integrity_check;
-
--- Validate record counts
-SELECT 
-    (SELECT COUNT(*) FROM AGENTS) AS agents_count,
-    (SELECT COUNT(*) FROM CUSTOMER) AS customers_count,
-    (SELECT COUNT(*) FROM ORDERS) AS orders_count;
+sqlite3 sales_db.db < verify_data.sql
 ```

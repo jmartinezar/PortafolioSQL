@@ -1,11 +1,38 @@
 \documentclass{article}
+\usepackage[top=2.54cm, bottom=2.54cm, left=2.54cm, right=2.54cm]{geometry}
 \usepackage{graphicx}
 \usepackage{amsmath}
 
-\title{Report on the Analysis of Data}
+\title{Report of sales}
 \author{Martínez-Arévalo, Juan Sebastián}
 \date{\today}
 
 \begin{document}
 \maketitle
+
+\section*{Executive Summary}
+The company has demonstrated significant international reach with operations in \textbf{5 countries}, supported by a base of \textbf{25 registered clients} and a sales force of \textbf{12 active agents}. The total accumulated sales volume amounts to \textbf{\$107,350}, with a record individual transaction of \textbf{\$5,000}. The database consists of three tables containing information related to agents, clients, and orders placed.
+
+\section*{Analysis of sales for country}
+
+The monthly distribution of sales by country throughout 2008 is shown in Figure \ref{fig:sales_by_country}. The graph highlights, among other details, the consistency of orders from India, indicating a growing market in that location, which may require an expansion of sales services for that country.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/bar_plot.pdf}
+    \caption{Monthly sales distribution by country in 2008}
+    \label{fig:sales_by_country}
+\end{figure}
+
+It is also evident that in September, orders originated from all countries where clients are located, indicating a more diverse purchasing volume during that month. This suggests the recommendation for marketing campaigns in both already covered countries and surrounding regions not yet covered. Similarly, December stands out as the month with the highest sales, though concentrated in two specific countries: India and the USA. Naturally, it is recommended to intensify marketing efforts during this period and, if possible, coordinate them with those of September.
+
+\section*{Conclusions}
+
+\begin{itemize}
+    \item The company has shown significant international reach, indicative of potential growth in both new countries and within existing markets, most of which have large economies.
+    \item Specifically, there is potential for growth in India, recommending increased efforts in this market, which is also one of the largest in the world.
+    \item It is advisable to conduct an intensive marketing campaign in September, as it is the month with the greatest diversity in the origin of orders.
+    \item For December, it is recommended to focus marketing efforts particularly on India and the USA, as although orders were only received from these regions in 2008, it was also the period with the highest sales.
+\end{itemize}
+
 \end{document}

@@ -54,12 +54,12 @@ sqlite3 sales_db.db
 
 ### Initialize schema
 ```sql
-sqlite3 sales_db.db < schema.sql
+sqlite3 sales_db.db < scheme.sql
 ```
 
 ### Import data
 ```sql
-sqlite3 sales_db.db < import_data.sql
+sqlite3 sales_db.db < data_import.sql
 ```
 
 ## Data Validation

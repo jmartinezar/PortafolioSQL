@@ -47,17 +47,17 @@ CREATE TABLE IF NOT EXISTS "ORDERS" (
 ```
 
 ## Installation Guide
-# Create database
+### Create database
 ```sql
 sqlite3 sales_db.db
 ```
 
-# Initialize schema
+### Initialize schema
 ```sql
 sqlite3 sales_db.db < schema.sql
 ```
 
-# Import data
+### Import data
 ```sql
 sqlite3 sales_db.db < import_data.sql
 ```
@@ -66,9 +66,7 @@ sqlite3 sales_db.db < import_data.sql
 ```sql
 -- Check foreign key constraints
 PRAGMA foreign_key_check;
-```
 
-```sql
 -- Verify data integrity
 PRAGMA integrity_check;
 

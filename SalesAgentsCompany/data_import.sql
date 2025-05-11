@@ -5,7 +5,7 @@ BEGIN TRANSACTION;
 -- Importar AGENTS
 CREATE TEMP TABLE temp_agents AS SELECT * FROM agents WHERE 1=0;
 .mode csv
-.import AGENTS.csv temp_agents
+.import 'data/AGENTS.csv' temp_agents
 INSERT OR IGNORE INTO AGENTS 
 SELECT 
     AGENT_CODE,
@@ -19,7 +19,7 @@ DROP TABLE temp_agents;
 
 -- Importar CUSTOMER
 CREATE TEMP TABLE temp_customer AS SELECT * FROM customer WHERE 1=0;
-.import CUSTOMER.csv temp_customer
+.import 'data/CUSTOMER.csv' temp_customer
 INSERT OR IGNORE INTO CUSTOMER 
 SELECT
     CUST_CODE,
@@ -39,7 +39,7 @@ DROP TABLE temp_customer;
 
 -- Importar ORDERS
 CREATE TEMP TABLE temp_orders AS SELECT * FROM orders WHERE 1=0;
-.import ORDERS.csv temp_orders
+.import 'data/ORDERS.csv' temp_orders
 INSERT OR IGNORE INTO ORDERS 
 SELECT 
     ORD_NUM,

@@ -1,6 +1,6 @@
 DATABASE = sales_db.db
 
-QUERY = bin/Querys.sql
+QUERY = bin/sales_for_agent.sql
 
 all: init_db run_query
 	@echo "The process has been completed"
@@ -14,4 +14,4 @@ run_query:
 	sqlite3 $(DATABASE) < $(QUERY)
 
 clean:
-	rm -f $(DATABASE)
+	rm -f $(DATABASE) sales_for_agent.csv bar_plot.pdf *.aux *.log sales_for_country_month.csv

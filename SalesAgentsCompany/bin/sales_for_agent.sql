@@ -1,0 +1,19 @@
+.headers on
+.mode csv
+.output sales_for_agent.csv
+
+SELECT 
+    A.AGENT_CODE,
+    A.AGENT_NAME,
+    SUM(O.ORD_AMOUNT) AS TOTAL_SALES
+    ROUND(A.COMMISSION * SUM(O.ORD_AMOUNT), 2) AS TOTAL_COMMISSION
+FROM
+    ORDERS O JOIN AGENTS A 
+    ON O.AGENT_CODE = A.AGENT_CODE
+GROUP BY
+    A.AGENT_CODE
+ORDER BY
+    A.AGENT_NAME DESC
+
+.output stdout
+.quit;
